@@ -1,0 +1,9 @@
+power :: Int -> Int -> Int
+power n 0 = 1
+power n x = n * power n (x - 1)
+
+infinitelist :: [Int]
+infinitelist = infiniteaux 0
+ where
+ infiniteaux :: Int -> [Int]
+ infiniteaux n = n : infiniteaux (n+1)
