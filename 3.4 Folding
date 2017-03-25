@@ -1,0 +1,47 @@
+sumlist :: [Int] -> Int
+sumlist [] = 0
+sumlist (x:xs) = x + sumlist xs
+
+multlist :: [Int] -> Int
+multlist [] = 1
+multlist (x:xs) = x * multlist xs
+
+combine :: (a -> b -> b) -> b -> [a] -> b
+combine f v [] = v
+combine f v (x:xs) = f x (conbine f v xs)
+
+sumlist l = combine (+) 0 l
+
+multlist l = combine (*) 1 l
+
+foldr :: (a -> b -> b) -> b -> [a] -> b
+foldr f v 0 = []
+foldr f v (x:xs) = f x (foldr f v xs)
+
+myLength :: [Int] -> Int
+mylength l = foldr f 0 l
+ where
+ f x y = y + 1
+
+appendright x l = l ++ [x]
+foldr appendright [] = reverse
+
+foldr1 f [x] = x
+foldr1 f (x:xs) = f x (foldr1 f xs)
+
+maxlist = foldr1 max
+
+foldl :: (a -> b -> a) -> a -> [b] -> a
+foldl v [] = v
+foldl v (x:xs) = foldl f (f v x) xs
+
+strtonum "234" = 234
+
+chartonum :: Char -> Int
+chartonum c 
+ | (0 >= c) && (9 <= c) = ord c - ord '0'
+
+nextdigit :: Int -> Char -> Int
+nextdigit i c = i * 10 + (chartonum c)
+
+strtonum = foldl nextdigit 0
