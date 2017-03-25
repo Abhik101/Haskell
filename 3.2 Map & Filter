@@ -1,0 +1,45 @@
+toUpperCase :: String -> String
+toUpperCase "" = ""
+toUpperCase (x: xs) = capitalize x : toUpperCase xs
+
+sqrlist :: [Int] -> [Int]
+sqrlist [] = []
+sqrlist (x: xs) = sqr x : sqrlist xs
+
+sumLength :: [[a]] -> Int
+sumLength [] = 0
+sumLength (x: xs) = length x + sumLength xs
+
+even_only :: [Int] -> [Int]
+even_only [] = []
+even_only (x: xs)
+ | is_even x = x: even_only xs
+ | otherwise = even_only xs
+ where
+ is_even :: Int -> Bool
+ is_even x = (mod x 2) == 0
+
+filter :: (a -> Bool) -> [a] -> [a]
+filter p [] = []
+filter p (x: xs)
+ | p x = x: filter p xs
+ | otherwise = filter p xs
+
+                                                            Map & Filter
+
+sumLength l = sum ( map length l)
+
+even_only l = filter is_even l
+
+cap_vow :: [Char] -> [Char]
+cap_vow l = map toUpperCase (filter is_vowel l)
+ where 
+ is_vowel :: Char -> Bool
+ is _vowel x = (x == 'a') || (x == 'e') || (x == 'i') || (x == 'o') || (x == 'u')
+
+sqr_even :: [Int] -> [Int]
+sqr_even l = map sqr (filter is_even l)
+ where
+ is_even :: Int -> Bool
+ is_even x = (mod x 2) == 0
+
