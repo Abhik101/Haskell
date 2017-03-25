@@ -1,0 +1,43 @@
+sumpairs :: (Int, Int) -> Int
+sumpairs (x, y) = x + y
+
+sumpairlist :: [(Int, Int)] -> Int
+sumpairlist [] = 0
+sumpairlist ((x, y) : zs) = x + y + sumpairlist zs
+
+lookup :: String -> [(String, Int)] -> Int
+lookup s [] = -1
+lookup s ((name, marks) : zs)
+ | s == name = marks
+ | otherwise = lookup s zs
+
+type Point2D = (Float, Float)
+
+distance :: Point2D -> Point2D -> Float
+distance (x1, y1) (x2, y2) = sqrt( sqr xdiff + sqr ydiff)
+ where
+ xdiff :: Float
+ xdiff = x2 - x1
+ 
+ ydiff :: Float
+ ydiff = y2 - y1
+ 
+ sqr :: Float -> Float
+ sqr x = x * x
+
+type Point3D = (Float, Float, Float)
+
+distance :: Point3D -> Point3D -> Float
+distance (x1, y1, z1) (x2, y2, z2) = sqrt( sqr xdiff + sqr ydiff + sqr zdiff)
+ where
+ xdiff :: Float
+ xdiff = x2 - x1
+ 
+ ydiff :: Float
+ ydiff = y2 - y1
+ 
+ zdiff :: Float
+ zdiff = z2 - z1
+ 
+ sqr :: Float -> Float
+ sqr x = x * x
