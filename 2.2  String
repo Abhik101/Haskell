@@ -1,0 +1,35 @@
+capitalize :: Char -> Char
+capitalize ch
+ | (ch >= 'a' && ch <= 'z') = chr (ord ch + (ord 'A' - ord 'a'))
+ | otherwise = ch
+
+occurs :: Char -> String -> Bool
+occurs c "" = False
+occurs c (x:xs)
+ | c == x = True
+ | otherwise = occurs c xs
+
+toUpperCase :: String -> String
+toUpperCase "" = ""
+toUpperCase (x:xs) = capitalize x : toUpperCase xs
+
+position :: Char -> String -> Int
+position c "" = 0
+position c (x:xs)
+ | c == x = 0
+ | otherwise = 1 + position c xs
+
+whitespace :: Char -> Bool
+whitespace ' ' = True
+whitespace '\n' = True
+whitespace '\t' = True
+whitespace _ = False
+
+wordcaux :: String -> Int
+wordcaux [c] = 0
+wordcaux (x:y:ys)
+ | (whitespace x) && not(whitespace y) = 1 + wordcaux (y:ys)
+ | otherwise = wordcaux (y:ys)
+
+wordc :: String -> Int
+wordc s = wordcaux (' ':s)
