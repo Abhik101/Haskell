@@ -1,0 +1,30 @@
+[ x*x | x <- l , is_even x]
+
+divisors n = [ x | x <- [1..n] , mod n x == 0]
+
+primes n = [ x | x <- [1..n] , divisors x == [1, x]]
+
+[ (x,y) | x <- [1..10] , y <- [1..10]]
+
+[ (x, y, z) | x <- [1..100] , y <- [(x+1)..100] , z <- [(y+1)..100] , x*x + y*y == z*z]
+
+concat l = [ x | y <- z , x <- y ]
+
+even_list l = [ x | x <- l , mod (length x) 2 == 0]
+
+head_of_even l = [ head x | x <- l , mod(length x) 2 == 0] 
+
+[ n*n | n <- [1..7] , mod n 2 == 0]
+
+concat( map f [1..7])
+ where
+ f :: Int -> Int
+ f n = [ n*n | mod n 2 == 0 ]
+
+concat( map f [1..7])
+ where
+ f n = if (mod n 2 == 0) then [n*n] else []
+
+primes = sieve [2..]
+ where
+ sieve (x:xs) = x: [ y | y <- xs , mod y x > 0]
