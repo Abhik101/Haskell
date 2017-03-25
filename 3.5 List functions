@@ -1,0 +1,41 @@
+position :: Char -> String -> Int
+position c "" = 0
+position c (x:xs)
+ | c == x = 0
+ | otherwise = 1 + position c xs
+
+position c s = length( takeWhile (/= c) s)
+
+addMarks :: [[Int]] -> [Int]
+addMarks [[x]] = [x]
+addmarks (x:xs) = zipWith (+) x (addMarks xs)
+
+addMarks = foldr1 (zipWith (+))
+
+nondecreasing :: [Int] -> Bool
+nondecreasing [] = True
+nondecreasing (x:y:ys) = (x <= y) && nondecreasing (y:ys)
+
+nondecreasing xs = [ (x, y) | (x, y) <- zip xs (tail xs)]
+
+allpos c s = [ i | (y, i) <- zip s [0..length s] , c == y]
+
+position c s = head( (allpos c s) ++ (length s) )
+
+initsegs :: [a] -> [[a]]
+initsegs [] = [[]]
+initsegs (x:xs) = [] : map (x:) (initsegs xs)
+
+interleave :: a -> [a] -> [[a]]
+interleave x [] = [[x]]
+interleave x (y:ys) = (x:y:ys) : map (y:) (interleave x ys)
+
+perm :: [a] -> [[a]]
+perm [x] = [[x]]
+perm (x:xs) = concat ( map (interleave x) (perm xs) )
+
+concatMap x l = concat (map x l)
+
+part :: [a] -> [[[a]]]
+part [x] = [[[x]]]
+part (x:xs) = [( x : head l) : tail l | l <- part xs] ++ [ [x] : l | l <- part xs ]
