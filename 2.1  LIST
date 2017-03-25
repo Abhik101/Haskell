@@ -1,0 +1,90 @@
+                                                            Pattern Matching
+
+myLength :: [Int] -> Int
+myLength [] = 0
+myLength (x:xs) = 1 + myLength xs
+
+mySum :: [Int] -> Int
+mySum [] = 0
+mySum (x:xs) = x + mySum xs
+
+appendr :: Int -> [Int] -> [Int]
+appendr n [] = [n]
+appendr n (x:xs) = x : (appendr n xs)
+
+attach :: [Int] -> [Int] -> [Int]
+attach [] y = y
+attach (x:xs) y = x : (attach xs y) 
+
+reverse :: [Int] -> [Int]
+reverse [] = []
+reverse (x:xs) = reverse xs ++ [x]
+
+ascending :: [Int] -> Bool
+ascending [] = True
+ascending [x] = True
+ascending (x:y:ys) = (x <= y) && ascending (y:ys)
+
+alternating :: [Int] -> Bool
+alternating l = updown l || downup l
+
+updown :: [Int] -> Bool
+updown [] = True
+updown [x] = True
+updown (x:y:ys) = (x < y) && downup (y:ys)
+
+downup :: [Int] -> Bool
+downup [] = True
+downup [x] = True
+downup (x:y:ys) = (x > y) && updown (y:ys)
+
+myTake :: Int -> [Int] -> [Int]
+myTake n [] = []
+myTake n (x:xs)
+ | n == 0 = []
+ | n > 0 = x : myTake (n-1) xs
+ | otherwise = []
+
+                                                          Built-in Functions
+
+myLength :: [Int] -> [Int]
+myLength [] = 0
+myLength l = 1 + myLength2 (tail l)
+
+mySum :: [Int] -> Int
+mySum [] = 0
+mySum l = head l + mySum (tail l)
+
+appendr :: Int -> [Int] -> [Int]
+appendr n [] = [n]
+appendr n l = head l : (appendr n (tail l))
+
+attach :: [Int] -> [Int] -> [Int]
+attach [] y = y
+attach x y = x ++ y
+
+reverse1 :: [Int] -> [Int]
+reverse1 [] = []
+reverse1 l = [last l] ++ reverse1 (init l)
+
+ascending :: [Int] -> Bool
+ascending [] = True
+ascending [x] = True
+ascending l = (head l <= head(tail l)) && ascending (tail l)
+
+alternating :: [Int] -> Bool
+alternating l = updown l || downup l
+
+updown :: [Int] -> Bool
+updown [] = True
+updown [x] = True
+updown l = (head l < head(tail l)) && downup (tail l)
+
+downup :: [Int] -> Bool
+downup [] = True
+downup [x] = True
+downup l = (head l > head(tail l)) && updown (tail l)
+
+myTake :: Int -> [Int] -> [Int]
+myTake n [] = []
+myTake n l = take n l
